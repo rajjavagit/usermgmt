@@ -1,0 +1,71 @@
+DOCUMENTATION:
+==============
+
+NOTE: 
+1. 'readme' file is provided in root folder of the project
+2. POSTMAN collection is provided in root folder to test the RESTful APIs.
+Note: Create roles first. Execute postman calls as numbered in the collection.
+
+USER MANAGEMENT RESTful SERVICE
+-------------------------------
+
+Service name/context path is set to: usermgmt
+
+Supported APIs:
+NOTE: all apis, where applicable, consumes and produces JSON.
+
+CREATE Roles POST - http://localhost:8082/usermgmt/api/v1/roles/
+GET all Roles - GET - http://localhost:8082/usermgmt/api/v1/roles/
+GET a Role by role_id - GET - http://localhost:8082/usermgmt/api/v1/roles/{role_id}
+
+CREATE Users wih Roles - POST - http://localhost:8082/usermgmt/api/v1/users/
+GET ALL Users with Roles - GET - http://localhost:8082/usermgmt/api/v1/users/
+GET a User by user_id - GET - http://localhost:8082/usermgmt/api/v1/users/{user_id}
+UPDATE a User by user_id - PUT - http://localhost:8082/usermgmt/api/v1/users/{user_id}
+DELETE a User by user_id - DELETE - http://localhost:8082/usermgmt/api/v1/users/{user_id}
+DELETE a Role from User by user_id and role_id - DELETE - http://localhost:8082/usermgmt/api/v1/users/{user_id}/roles/{role_id}
+
+
+DOCKER CONTAINERIZATION INSTRUCTIONS
+====================================
+
+run mvn clean install (or) ./mvnw package - to generate executable file
+
+Step 1. Dockerfile (provided in root folder of the project) - No need to do anything
+
+FROM openjdk:11
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} springboot-rest-app-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/springboot-rest-app-0.0.1-SNAPSHOT.jar"]
+
+Step 2. Build an image of app and give it a name "usermgmt-app", run this command in the root folder of app.
+docker build -t usermgmt-app .
+
+Step 3. Run app in the container, run this command in the root folder of app.
+docker run -p 8082:8082 -d usermgmt-app:latest
+
+step 4. Once container is up and running, access application at
+localhost:8082/usermgmt/api/v1/users/
+(or) any other api mentioned above 
+
+Other useful docker commands
+docker ps
+docker stop <containerId>
+
+DOCKER COMPOSE YAML - Run as Container Service
+===================
+
+version: '3.8'
+services:
+  usermgmt-app:
+    build: .
+    container_name: 'usermgmt-app'
+    restart: always
+    ports:
+      - '8082:8082'
+
+
+========To Do========
+1. Application security
+
+---------END---------
