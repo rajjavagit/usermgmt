@@ -27,7 +27,7 @@ public class RoleService {
     	} 
     	
     	if(!list.isEmpty()) {
-    		return "User Id "+ list.toString() + " already exist";
+    		return "Role Id or Ids "+ list.toString() + " already exist";
     	} else {
         	return roleRepo.saveAll(roles);
     	}

@@ -5,8 +5,6 @@ import com.myproject.springbootrestapp.entities.Role;
 import com.myproject.springbootrestapp.entities.User;
 import com.myproject.springbootrestapp.repos.RoleRepo;
 import com.myproject.springbootrestapp.repos.UserRepo;
-//import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-//import java.util.Base64;
 import org.apache.commons.codec.binary.Base64;
 
 import org.apache.commons.codec.binary.Base32;
@@ -14,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
-//import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -60,7 +57,7 @@ public class UserService {
     	} 
     	
     	if(!list.isEmpty()) {
-    		return "Role with id "+ list.toString() + " already exist";
+    		return "User id or ids  "+ list.toString() + " already exist";
     	} else {
         	return userRepo.saveAll(users);
     	}
